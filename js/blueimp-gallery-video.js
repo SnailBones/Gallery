@@ -58,6 +58,9 @@
         }
       ]
       var video = videoInterface || document.createElement('video')
+      video.autoplay = true;
+      video.loop = true;
+      video.mute = true;
       var url = this.getItemProperty(obj, options.urlProperty)
       var type = this.getItemProperty(obj, options.typeProperty)
       var title = this.getItemProperty(obj, options.titleProperty)
@@ -110,31 +113,31 @@
           .on('error', function() {
             that.setTimeout(callback, errorArgs)
           })
-          .on('pause', function() {
-            if (video.seeking) return
-            isLoading = false
-            videoContainer
-              .removeClass(that.options.videoLoadingClass)
-              .removeClass(that.options.videoPlayingClass)
-            if (hasControls) {
-              that.container.addClass(that.options.controlsClass)
-            }
-            delete that.playingVideo
-            if (that.interval) {
-              that.play()
-            }
-          })
+          // .on('pause', function() {
+          //   if (video.seeking) return
+          //   isLoading = false
+          //   videoContainer
+          //     .removeClass(that.options.videoLoadingClass)
+          //     .removeClass(that.options.videoPlayingClass)
+          //   if (hasControls) {
+          //     that.container.addClass(that.options.controlsClass)
+          //   }
+          //   delete that.playingVideo
+          //   if (that.interval) {
+          //     that.play()
+          //   }
+          // })
           .on('playing', function() {
             isLoading = false
             videoContainer
               .removeClass(that.options.videoLoadingClass)
               .addClass(that.options.videoPlayingClass)
-            if (that.container.hasClass(that.options.controlsClass)) {
-              hasControls = true
-              that.container.removeClass(that.options.controlsClass)
-            } else {
-              hasControls = false
-            }
+            // if (that.container.hasClass(that.options.controlsClass)) {
+            //   hasControls = true
+            //   that.container.removeClass(that.options.controlsClass)
+            // } else {
+            //   hasControls = false
+            // }
           })
           .on('play', function() {
             window.clearTimeout(that.timeout)
